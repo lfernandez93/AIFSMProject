@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fsmproject.entitys.state;
+package fsmproject.entitys.minerStates;
 
 import fsmproject.entitys.Location;
 import fsmproject.entitys.Miner;
@@ -11,7 +11,7 @@ import fsmproject.entitys.Miner;
  *
  * @author Luis Fernández <@lfernandez93>
  */
-public class VisitBankAndDepositGold implements StateInterface {
+public class VisitBankAndDepositGold implements StateInterface<Miner> {
 
     private static VisitBankAndDepositGold _instance;
 
@@ -42,9 +42,9 @@ public class VisitBankAndDepositGold implements StateInterface {
         miner.setGoldCarried(0);
         //if not tired keep working
         if (!miner.isTired()) {
-            miner.ChangeState(EnterMineAndDigForNugget.getInstance());
+            miner.getStateMachine().changeState(EnterMineAndDigForNugget.getInstance());
         } else {
-            miner.ChangeState(GoHomeAndSleepTillRested.getInstance());
+            miner.getStateMachine().changeState(GoHomeAndSleepTillRested.getInstance());
         }
     }
 

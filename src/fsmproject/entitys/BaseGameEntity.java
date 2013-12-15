@@ -11,11 +11,13 @@ package fsmproject.entitys;
 abstract class BaseGameEntity {
 
     //every entity has an ID number.
-    private int mID;
+    //private int mID;
     //this ID is changed every time a entity is instantiated
-    private static int nextValidID;
-
-    public BaseGameEntity(int mID) {
+    private MID mID;
+    private static MID nextValidID;
+   
+    
+    public BaseGameEntity(MID mID) {
         setmID(mID);
     }
     abstract public void update();
@@ -23,11 +25,11 @@ abstract class BaseGameEntity {
     //the id passed is greater or equal to the existing one, begore 
     //setting the ID and incrementing the next validID
 
-    public void setmID(int mID) {
+    public void setmID(MID mID) {
         this.mID = mID;
     }
 
-    public int getmID() {
-        return mID;
+    public String getmID() {
+        return mID.getName();
     }
 }

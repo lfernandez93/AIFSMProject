@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fsmproject.entitys.state;
+package fsmproject.entitys.minerStates;
 
 import fsmproject.entitys.Location;
 import fsmproject.entitys.Miner;
@@ -11,7 +11,7 @@ import fsmproject.entitys.Miner;
  *
  * @author Luis Fernández <@lfernandez93>
  */
-public class EnterMineAndDigForNugget implements StateInterface {
+public class EnterMineAndDigForNugget implements StateInterface<Miner> {
     
     private static EnterMineAndDigForNugget _instance;
     
@@ -43,16 +43,16 @@ public class EnterMineAndDigForNugget implements StateInterface {
         miner.increaseFatigue(1);
         //if pocket full go and save your gold at bank.
         if(miner.isPocketFull()){
-            miner.ChangeState(VisitBankAndDepositGold.getInstance());
+            miner.getStateMachine().changeState(VisitBankAndDepositGold.getInstance());
         }
         //if thirsty go to the salon for some water.
         if(miner.isThirsty()){
-            miner.ChangeState(QuenchThirst.getInstance());
+            miner.getStateMachine().changeState(QuenchThirst.getInstance());
         }
-        if(!miner.isPocketFull() && !miner.isThirsty()){
+        /*if(!miner.isPocketFull() && !miner.isThirsty()){
 
             execute(miner);
-        }
+        }*/
     }
     
     @Override

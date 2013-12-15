@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fsmproject.entitys.state;
+package fsmproject.entitys.minerStates;
 
 import fsmproject.entitys.Location;
 import fsmproject.entitys.Miner;
@@ -11,7 +11,7 @@ import fsmproject.entitys.Miner;
  *
  * @author Luis Fernández <@lfernandez93>
  */
-public class GoHomeAndSleepTillRested implements StateInterface {
+public class GoHomeAndSleepTillRested implements StateInterface<Miner> {
 
     private static GoHomeAndSleepTillRested _instance;
 
@@ -35,12 +35,12 @@ public class GoHomeAndSleepTillRested implements StateInterface {
 
     @Override
     public void execute(Miner miner) {
-        miner.decreaseFatigue(1);
+        miner.decreaseFatigue(10);
         System.out.println("ZZZ! rest lvl=>"+miner.getFatigue());
         if (!miner.isTired()) {
-            miner.ChangeState(EnterMineAndDigForNugget.getInstance());
+            miner.getStateMachine().changeState(EnterMineAndDigForNugget.getInstance());
         }else{
-           execute(miner);
+          // execute(miner);
         }
     }
 

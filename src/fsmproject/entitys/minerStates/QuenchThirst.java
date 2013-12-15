@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fsmproject.entitys.state;
+package fsmproject.entitys.minerStates;
 
 import fsmproject.entitys.Location;
 import fsmproject.entitys.Miner;
@@ -11,7 +11,7 @@ import fsmproject.entitys.Miner;
  *
  * @author Luis Fernández <@lfernandez93>
  */
-public class QuenchThirst implements StateInterface {
+public class QuenchThirst implements StateInterface<Miner> {
 
     private static QuenchThirst _instance;
 
@@ -35,12 +35,12 @@ public class QuenchThirst implements StateInterface {
 
     @Override
     public void execute(Miner miner) {
-        miner.decreaseThirst(1);
+        miner.decreaseThirst(10);
         System.out.println("Drinking some water thirst level=>"+miner.getThirst());
         if(!miner.isThirsty()){
-            miner.ChangeState(EnterMineAndDigForNugget.getInstance());
+            miner.getStateMachine().changeState(EnterMineAndDigForNugget.getInstance());
         }else{
-            execute(miner);
+            //execute(miner);
         }
     }
 

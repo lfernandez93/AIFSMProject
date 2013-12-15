@@ -4,15 +4,23 @@
  */
 package fsmproject.entitys;
 
-import fsmproject.entitys.state.EnterMineAndDigForNugget;
-import fsmproject.entitys.state.StateInterface;
+import fsmproject.entitys.minerStates.GoHomeAndSleepTillRested;
+import fsmproject.entitys.minerStates.MinerGlobalState;
+import fsmproject.entitys.minerStates.StateInterface;
 
 /**
  *
  * @author Luis Fernández <@lfernandez93>
  */
 public class Miner extends BaseGameEntity {
+    //state machine instance
 
+    private StateMachine<Miner> stateMachine;
+    //global state
+    private StateInterface globalState;
+    //previous state
+    private StateInterface previousState;
+    //current state
     private StateInterface currentState;
     //miner's current location
     private Location location;
@@ -33,15 +41,26 @@ public class Miner extends BaseGameEntity {
     private final int MINTHIRST = 0;
     private final int MINFATIGUE = 0;
 
-    public Miner(int mID) {
+    public Miner(MID mID) {
         super(mID);
+        setLocation(location.BANK);
+        setGoldCarried(0);
+        setGoldInBank(0);
+        setThirst(0);
+        setFatigue(0);
+        stateMachine = new StateMachine<>(this);
+        stateMachine.setCurrentState(GoHomeAndSleepTillRested.getInstance());
+        stateMachine.setGlobalState(MinerGlobalState.getInstance());
     }
-
-    public void ChangeState(StateInterface newState) {
+ 
+    
+    public void changeState(StateInterface newState) {
         //assert the states are different
         if (getCurrentState() != newState) {
             //exit from the current state.
+            if(getCurrentState()!=null){
             getCurrentState().exit(this);
+            }
             //set the new state.
             currentState = newState;
             //enter to the new state.
@@ -51,8 +70,32 @@ public class Miner extends BaseGameEntity {
 
     @Override
     public void update() {
-        thirst++;
-        getCurrentState().execute(this);
+        ++thirst;
+        getStateMachine().update();
+    }
+
+    public StateMachine<Miner> getStateMachine() {
+        return stateMachine;
+    }
+
+    public void setStateMachine(StateMachine<Miner> stateMachine) {
+        this.stateMachine = stateMachine;
+    }
+
+    public StateInterface getGlobalState() {
+        return globalState;
+    }
+
+    public void setGlobalState(StateInterface globalState) {
+        this.globalState = globalState;
+    }
+
+    public StateInterface getPreviousState() {
+        return previousState;
+    }
+
+    public void setPreviousState(StateInterface previousState) {
+        this.previousState = previousState;
     }
 
     public Location getLocation() {
@@ -104,14 +147,17 @@ public class Miner extends BaseGameEntity {
     }
 
     public StateInterface getCurrentState() {
+ 
         return currentState;
+        
     }
-    
-    public void setCurrentState(StateInterface state){
+
+    public void setCurrentState(StateInterface state) {
         currentState = state;
     }
 
     public void depositGold(int amount) {
+        
         goldInBank = goldInBank + amount;
     }
 
@@ -135,11 +181,23 @@ public class Miner extends BaseGameEntity {
         }
         return false;
     }
-    public void decreaseThirst(int unit){
+
+    public void decreaseThirst(int unit) {
+        if(thirst!=0){
         thirst = thirst - unit;
+        }
+    }
+
+    public void decreaseFatigue(int unit) {
+        if(fatigue!=0){
+        fatigue = fatigue - unit;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Miner{" +this.getmID()+ '}';
     }
     
-    public void decreaseFatigue(int unit){
-        fatigue = fatigue - unit;
-    }
+    
 }
