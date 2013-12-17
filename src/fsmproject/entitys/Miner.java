@@ -50,7 +50,7 @@ public class Miner extends BaseGameEntity {
         setFatigue(0);
         stateMachine = new StateMachine<>(this);
         stateMachine.setCurrentState(GoHomeAndSleepTillRested.getInstance());
-        stateMachine.setGlobalState(MinerGlobalState.getInstance());
+        //stateMachine.setGlobalState(MinerGlobalState.getInstance());
     }
  
     

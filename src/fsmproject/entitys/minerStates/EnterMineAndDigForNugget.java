@@ -41,6 +41,7 @@ public class EnterMineAndDigForNugget implements StateInterface<Miner> {
         miner.increaseGoldCarried(1);
         //this will result in getting tired.
         miner.increaseFatigue(1);
+        System.out.println(miner.getmID()+": Mining at the mine making myself rich");
         //if pocket full go and save your gold at bank.
         if(miner.isPocketFull()){
             miner.getStateMachine().changeState(VisitBankAndDepositGold.getInstance());

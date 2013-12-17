@@ -18,13 +18,14 @@ public class GoHomeAndSleepTillRested implements StateInterface<Miner> {
     private GoHomeAndSleepTillRested() {
     }
 
-    public static GoHomeAndSleepTillRested getInstance(){
-        if(_instance == null){
+    public static GoHomeAndSleepTillRested getInstance() {
+        if (_instance == null) {
             return new GoHomeAndSleepTillRested();
-        }else{
+        } else {
             return _instance;
         }
     }
+
     @Override
     public void enter(Miner miner) {
         if (miner.getLocation() != Location.SWEETHOME) {
@@ -35,12 +36,14 @@ public class GoHomeAndSleepTillRested implements StateInterface<Miner> {
 
     @Override
     public void execute(Miner miner) {
-        miner.decreaseFatigue(10);
-        System.out.println("ZZZ! rest lvl=>"+miner.getFatigue());
+
+
         if (!miner.isTired()) {
             miner.getStateMachine().changeState(EnterMineAndDigForNugget.getInstance());
-        }else{
-          // execute(miner);
+        } else {
+            System.out.println("ZZZ! rest lvl=>" + miner.getFatigue());
+            miner.decreaseFatigue(1);
+            // execute(miner);
         }
     }
 

@@ -29,7 +29,7 @@ public class StateMachine<T> {
             getGlobalState().execute(getOwner());
         }
         if (getCurrentState() != null) {
-            
+
             getCurrentState().execute(getOwner());
         }
 
@@ -51,6 +51,10 @@ public class StateMachine<T> {
             return false;
         }
         return true;
+    }
+
+    public void revertToPreviousState() {
+        changeState(getPreviousState());
     }
 
     public T getOwner() {
