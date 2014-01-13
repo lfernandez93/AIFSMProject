@@ -4,10 +4,11 @@
  */
 package fsmproject;
 
-import fsmproject.entitys.EntityManager;
 import fsmproject.entitys.MID;
 import fsmproject.entitys.Miner;
 import fsmproject.entitys.MinersWife;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,13 +16,8 @@ import fsmproject.entitys.MinersWife;
  */
 public class main {
     public static void main(String[] args) {
-        EntityManager entityManager = EntityManager.getInstance();
         Miner m=new Miner(MID.bobTheMiner);
         MinersWife mW=new MinersWife(MID.elsaTheWife);
-        entityManager.registerEntity(m);
-        entityManager.registerEntity(mW);
-        String[] asd=new String[]{null,null};
-        System.out.println(asd[0]);
         for(int i=0;i<25;i++){
         m.update();
         mW.update();
