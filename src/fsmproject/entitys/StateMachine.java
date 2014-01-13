@@ -13,9 +13,9 @@ import fsmproject.entitys.minerStates.StateInterface;
 public class StateMachine<T> {
 
     private T owner;
-    StateInterface<T> currentState;
-    StateInterface<T> previousState;
-    StateInterface<T> globalState;
+    private StateInterface<T> currentState;
+    private StateInterface<T> previousState;
+    private StateInterface<T> globalState;
 
     public StateMachine(T owner) {
         setOwner(owner);

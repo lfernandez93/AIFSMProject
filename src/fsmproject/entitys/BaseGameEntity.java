@@ -32,4 +32,8 @@ abstract class BaseGameEntity {
     public String getmID() {
         return mID.getName();
     }
+    
+    public int getId(){
+        return mID.getId();
+    }
 }
