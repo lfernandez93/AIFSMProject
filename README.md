@@ -1,4 +1,4 @@
 AIFSMProject
 ============
 
-a little project build  in java to learn about the Smart Agents and FSM in AI.
+a little project built  in java to learn about the Smart Agents and FSM in AI.
